@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Hello Leaflet</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+
+     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>
+
+</head>
+
+<body>
+
+    <div id="map" style="width: 600px; height: 400px;"></div>
+
+<script>
+
+        const map = L.map('map').setView([41.881832, //latitude
+            -87.62317], //longitude
+            6);    //zoom
+
+        const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        var marker = L.marker([41.881832, -87.62317]).addTo(map);
+        var circle = L.circle([41.88, -87.622], {radius: 400}).addTo(map);
+
+        // var latlngs = [[43.09, -79.07],[43.08, -79.06],[43.1, -79.05]];
+        var latlngs = [[41.86, -87.62],[41.87, -87.61],[41.88, -87.65]];
+
+        var polygon = L.polygon(latlngs, {color: 'orange', fillOpacity: 0.8, weight: 6}).addTo(map);
+
+        var popup = L.popup()
+           .setLatLng([43.1123, -79.01])
+           .setContent("Testing a popup.")
+           .openOn(map);
+           marker.bindPopup("Testing a popup.").openPopup();
+           circle.bindPopup("<b>Testing!</b>I am a circle.");
+           polygon.bindPopup("Testing a polygon.");
+
+           function onMapClick(e) {
+        alert("You clicked the map at " + e.latlng);
+}
+
+map.on('click', onMapClick);
+</script>
+
+</body>
+
+</html>
